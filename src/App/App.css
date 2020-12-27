@@ -1,0 +1,72 @@
+.App {
+  background-color: rgb(51, 37, 37);
+  --custom-font: Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  display: grid;
+  grid-template-areas: "sidebar header" "sidebar main";
+  grid-template-columns: 1fr 2.3fr;
+  grid-template-rows: 120px 1fr;
+  min-height: 100vh;
+}
+
+.App__nav {
+  background-color: rgb(90, 71, 71);
+  color: #fff;
+  grid-area: sidebar;
+  height: 100vh;
+  overflow: scroll;
+}
+
+.App__header {
+  background-color: rgb(78, 56, 56);
+  color: #bdbdbd;
+  font-family: var(--custom-font);
+  grid-area: header;
+  padding-left: 16px;
+  padding-top: 32px;
+  text-shadow: 2px 1px 2px rgb(44, 26, 26);
+}
+
+.App__header a {
+  color: #bdbdbd;
+}
+
+.App__header a:hover {
+  color: #865329;
+}
+
+.App__main {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  text-align: center;
+  grid-area: main;
+  height: calc(100vh - 120px);
+  overflow: scroll;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+fieldset {
+  border-radius: 5px;
+  border: none;
+  background-color: rgb(180, 152, 152);
+  align-content: center;
+}
+
+legend {
+  display: none;
+}
+
+label {
+  color: rgb(73, 57, 57);
+}
+
+textarea {
+  height: 40px;
+  width: 140px;
+}
