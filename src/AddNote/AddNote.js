@@ -1,15 +1,15 @@
-import React from "react";
-import { Component } from "react";
-import ApiContext from "../ApiContext";
-import PropTypes from "prop-types";
+import React from 'react';
+import { Component } from 'react';
+import ApiContext from '../ApiContext';
+import PropTypes from 'prop-types';
 
 class AddNote extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      noteName: "",
-      noteContent: "",
-      targetFolderId: "",
+      noteName: '',
+      noteContent: '',
+      targetFolderId: '',
     };
   }
 
@@ -20,30 +20,27 @@ class AddNote extends Component {
     const { addNote } = this.context;
     const modified = new Date().toISOString();
 
-    fetch("http://localhost:9090/notes", {
-      method: "POST",
+    fetch('http://localhost:9000/api/notes', {
+      method: 'POST',
       body: JSON.stringify({
-        name: this.state.noteName,
-        modified: modified,
+        note_name: this.state.noteName,
+        date_modified: modified,
         folderId: this.state.targetFolderId,
         content: this.state.noteContent,
       }),
-      headers: {
-        "Content-Type": "application/json",
-      },
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Something went wrong, could not add new note");
+          throw new Error('Something went wrong, could not add new note');
         }
         return res.json();
       })
       .then((data) => {
         addNote(data);
         this.setState({
-          noteName: "",
-          noteContent: "",
-          targetFolderId: "",
+          noteName: '',
+          noteContent: '',
+          targetFolderId: '',
         });
         this.props.history.goBack();
       })
@@ -80,49 +77,49 @@ class AddNote extends Component {
     });
 
     const error = this.state.error ? (
-      <div className="error">{this.state.error}</div>
+      <div className='error'>{this.state.error}</div>
     ) : (
-      ""
+      ''
     );
 
     return (
-      <div className="AddNote">
-        <form className="newNoteForm" onSubmit={(e) => this.handleSubmit(e)}>
+      <div className='AddNote'>
+        <form className='newNoteForm' onSubmit={(e) => this.handleSubmit(e)}>
           <fieldset>
             <legend>Create a New Note</legend>
-            <label htmlFor="noteName">Enter your note name here:</label>
+            <label htmlFor='noteName'>Enter your note name here:</label>
             <br />
             <input
-              type="text"
-              name="noteName"
-              id="noteName"
+              type='text'
+              name='noteName'
+              id='noteName'
               value={this.state.noteName}
               onChange={(e) => this.updateNote(e.target.value)}
             />
             <br />
-            <label htmlFor="noteContent">Note Text:</label>
+            <label htmlFor='noteContent'>Note Text:</label>
             <br />
             <textarea
-              id="noteContent"
-              name="noteContent"
-              rows="6"
-              cols="40"
+              id='noteContent'
+              name='noteContent'
+              rows='6'
+              cols='40'
               value={this.state.noteContent}
               onChange={(e) => this.updateContent(e.target.value)}
             />
             <br />
-            <label htmlFor="targetFolder">Select a folder</label>
+            <label htmlFor='targetFolder'>Select a folder</label>
             <br />
             <select
-              name="targetFolder"
-              id="targetFolder"
+              name='targetFolder'
+              id='targetFolder'
               onChange={(e) => this.updateTargetFolder(e.target.value)}
             >
-              <option value={""}> --- </option> {selectOptions}{" "}
+              <option value={''}> --- </option> {selectOptions}{' '}
             </select>
             <br />
             <button
-              type="submit"
+              type='submit'
               disabled={
                 !(this.state.noteName.length > 0) ||
                 !(this.state.noteContent.length > 0) ||

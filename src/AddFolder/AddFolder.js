@@ -1,14 +1,14 @@
-import React from "react";
-import { Component } from "react";
-import ApiContext from "../ApiContext";
-import PropTypes from "prop-types";
-import "./AddFolder.css";
+import React from 'react';
+import { Component } from 'react';
+import ApiContext from '../ApiContext';
+import PropTypes from 'prop-types';
+import './AddFolder.css';
 
 class AddFolder extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      folderName: "",
+      folderName: '',
     };
   }
 
@@ -18,22 +18,22 @@ class AddFolder extends Component {
     e.preventDefault();
     const { addFolder } = this.context;
 
-    fetch("http://localhost:9090/folders", {
-      method: "POST",
+    fetch('http://localhost:9000/api/folder', {
+      method: 'POST',
       body: JSON.stringify({ name: this.state.folderName }),
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     })
       .then((res) => {
         if (!res.ok) {
-          throw new Error("Something went wrong, could not add new folder");
+          throw new Error('Something went wrong, could not add new folder');
         }
         return res.json();
       })
       .then((data) => {
         addFolder(data);
-        this.setState({ folderName: "" });
+        this.setState({ folderName: '' });
         this.props.history.goBack();
       })
       .catch((err) => {
@@ -47,28 +47,28 @@ class AddFolder extends Component {
 
   render() {
     const error = this.state.error ? (
-      <div className="error">{this.state.error}</div>
+      <div className='error'>{this.state.error}</div>
     ) : (
-      ""
+      ''
     );
 
     return (
-      <div className="AddFolder">
-        <form className="newFolderForm" onSubmit={(e) => this.handleSubmit(e)}>
+      <div className='AddFolder'>
+        <form className='newFolderForm' onSubmit={(e) => this.handleSubmit(e)}>
           <fieldset>
             <legend>Create a New Folder</legend>
-            <label htmlFor="folderName">Enter your folder name here:</label>
+            <label htmlFor='folderName'>Enter your folder name here:</label>
             <br />
             <input
-              type="text"
-              name="folderName"
-              id="folderName"
+              type='text'
+              name='folderName'
+              id='folderName'
               value={this.state.folderName}
               onChange={(e) => this.updateFolder(e.target.value)}
             />
             <br />
             <button
-              type="submit"
+              type='submit'
               disabled={!(this.state.folderName.length > 0)}
             >
               Add New Folder
